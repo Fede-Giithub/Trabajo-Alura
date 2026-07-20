@@ -1,0 +1,31 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Variables de entorno (API keys)
+.env
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Modelos / bases vectoriales generadas
+*.faiss
+*.pkl
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
