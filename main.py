@@ -103,3 +103,64 @@ print("\n--- DOCUMENTOS ENCONTRADOS ---")
 for i, doc in enumerate(documentos_encontrados):
     print(f"\nDocumento {i+1}")
     print(doc.page_content[:500])
+
+from langchain_core.prompts import ChatPromptTemplate
+from langchain.chains.combine_documents import create_stuff_documents_chain
+
+prompt_RAG= ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """
+           
+
+            Sos un asistente de soporte de una ecommerce llamada Victory. 
+            Responde usando unicamente la información del contexto. Si la respuesta no está en los documentos, debes avisar que no encontraste esa información
+
+            Contexto:
+            {context}
+            """
+        ),
+        (
+            "human",
+            "{input}"
+        )
+    ]
+)
+
+
+documento_chain = create_stuff_documents_chain(
+    llm,
+    prompt_RAG
+)
+
+def responder_RAG(pregunta):
+
+    documentos = retriever.invoke(pregunta)
+
+    if not documentos:
+        return {
+            "respuesta": "No encontré información relacionada en los documentos.",
+            "documentos_encontrados": False
+        }
+
+
+    respuesta = document_chain.invoke(
+        {
+            "input": pregunta,
+            "context": documentos
+        }
+    )
+
+    return {
+        "respuesta": respuesta,
+        "documentos_encontrados": True
+    }
+
+
+pregunta = "¿Cuánto tarda un envío?"
+
+respuesta = responder_RAG(pregunta)
+
+print("\n--- RESPUESTA ---")
+print(respuesta)
