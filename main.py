@@ -91,3 +91,15 @@ retriever = vectorstore.as_retriever(
 
 
 print("Retriever listo")
+
+pregunta = "¿Cuánto tarda un envío?"
+
+
+documentos_encontrados = retriever.invoke(pregunta)
+
+
+print("\n--- DOCUMENTOS ENCONTRADOS ---")
+
+for i, doc in enumerate(documentos_encontrados):
+    print(f"\nDocumento {i+1}")
+    print(doc.page_content[:500])
