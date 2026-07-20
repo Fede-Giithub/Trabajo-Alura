@@ -205,34 +205,11 @@ def nodo_abrir_ticket(state: AgentState):
         "accion_final": "ticket_creado"
     }
 
-
 workflow = StateGraph(AgentState)
-
-
-workflow.add_node(
-    "auto_resolver",
-    nodo_auto_resolver
-)
-
-workflow.add_node(
-    "pedir_info",
-    nodo_pedir_info
-)
-
-workflow.add_node(
-    "abrir_ticket",
-    nodo_abrir_ticket
-)
-
-workflow.add_edge(
-    START,
-    "auto_resolver"
-)
-
-workflow.add_edge(
-    "auto_resolver",
-    END
-)
-
+workflow.add_node("auto_resolver",nodo_auto_resolver)
+workflow.add_node("pedir_info",nodo_pedir_info)
+workflow.add_node("abrir_ticket",nodo_abrir_ticket)
+workflow.add_edge(START,"auto_resolver")
+workflow.add_edge("auto_resolver",END)
 
 app = workflow.compile()
