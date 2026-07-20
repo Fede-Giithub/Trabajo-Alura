@@ -164,3 +164,75 @@ respuesta = responder_RAG(pregunta)
 
 print("\n--- RESPUESTA ---")
 print(respuesta)
+
+
+
+from typing import TypedDict, Optional
+
+
+class AgentState(TypedDict, total=False):
+    pregunta: str
+    triaje: dict
+    respuesta: Optional[str]
+    rag_exito: bool
+    accion_final: str
+
+
+
+def nodo_auto_resolver(state: AgentState):
+
+    pregunta = state["pregunta"]
+
+    resultado = responder_RAG(pregunta)
+
+    return {
+        "respuesta": resultado["respuesta"],
+        "rag_exito": resultado["documentos_encontrados"],
+        "accion_final": "respuesta_generada"
+    }
+
+def nodo_pedir_info(state: AgentState):
+
+    return {
+        "respuesta": "Necesito más información para ayudarte.",
+        "accion_final": "pedir_informacion"
+    }
+
+def nodo_abrir_ticket(state: AgentState):
+
+    return {
+        "respuesta": "Se generó un ticket de soporte.",
+        "accion_final": "ticket_creado"
+    }
+
+
+workflow = StateGraph(AgentState)
+
+
+workflow.add_node(
+    "auto_resolver",
+    nodo_auto_resolver
+)
+
+workflow.add_node(
+    "pedir_info",
+    nodo_pedir_info
+)
+
+workflow.add_node(
+    "abrir_ticket",
+    nodo_abrir_ticket
+)
+
+workflow.add_edge(
+    START,
+    "auto_resolver"
+)
+
+workflow.add_edge(
+    "auto_resolver",
+    END
+)
+
+
+app = workflow.compile()
