@@ -145,7 +145,7 @@ def responder_RAG(pregunta):
         }
 
 
-    respuesta = document_chain.invoke(
+    respuesta = documento_chain.invoke(
         {
             "input": pregunta,
             "context": documentos
@@ -166,7 +166,7 @@ print("\n--- RESPUESTA ---")
 print(respuesta)
 
 
-
+from langgraph.graph import StateGraph, START, END
 from typing import TypedDict, Optional
 
 
@@ -213,3 +213,13 @@ workflow.add_edge(START,"auto_resolver")
 workflow.add_edge("auto_resolver",END)
 
 app = workflow.compile()
+
+
+resultado = app.invoke(
+    {
+        "pregunta": "¿Cuánto tarda un envío?"
+    }
+)
+
+
+print(resultado)
