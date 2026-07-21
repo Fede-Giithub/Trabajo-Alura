@@ -11,7 +11,6 @@ from prompt import prompt_RAG
 
 
 
-
 ruta_pdfs = Path("./documentos")
 
 docs = []
@@ -34,7 +33,7 @@ chunks = splitter.split_documents(docs)
 
 
 embeddings = HuggingFaceEmbeddings(
-    model_name="BAAI/bge-m3"
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
 
