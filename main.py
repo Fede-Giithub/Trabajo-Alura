@@ -1,4 +1,8 @@
+print("ARRANCA APLICACION")
+
 from workflow import app
+
+print("WORKFLOW CARGADO")
 
 print("\n===== Victory AI =====")
 print("Escribí tu consulta. Para salir escribí 'salir'.\n")
