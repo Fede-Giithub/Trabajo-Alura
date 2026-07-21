@@ -5,7 +5,7 @@ print("Escribí tu consulta. Para salir escribí 'salir'.\n")
 
 while True:
 
-    pregunta = input("👤 Usuario: ")
+    pregunta = input(" Usuario: ")
 
     if pregunta.lower() == "salir":
         print("\n Victory: ¡Hasta luego!")

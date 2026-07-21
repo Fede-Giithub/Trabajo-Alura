@@ -97,30 +97,27 @@ pip install -r requirements.txt
 Crear un archivo `.env` en la raíz del proyecto.
 Dentro del archivo agregar la API Key de Google Gemini:
 
-```env
 GEMINI_API_KEY=tu_api_key_de_google_gemini
-```
 
-### Paso 5: Configurar Ollama
 
-Instalar Ollama y descargar el modelo de embeddings utilizado por el sistema:
+## Paso 5: Configurar el modelo de embeddings
 
-```bash
-ollama pull bge-m3
-```
+El proyecto utiliza el modelo de embeddings **BAAI/bge-m3** mediante HuggingFace
 
-Verificar que el modelo se encuentre correctamente instalado:
 
 ```bash
-ollama list
-```
+BAAI/bge-m3
+
+
 ### Paso 6: Ejecutar la aplicación
 
-Iniciar el asistente ejecutando:
+Iniciar la interfaz web ejecutando:
 
 ```bash
-python main.py
-```
+streamlit run aplicacion.py
+### Paso 6: Ejecutar la aplicación
+
+
 
 ### Preguntas y respuestas realizadas:
 ===== Victory AI =====

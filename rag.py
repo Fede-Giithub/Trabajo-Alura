@@ -3,16 +3,14 @@ from pathlib import Path
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_ollama import OllamaEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.chains.combine_documents import create_stuff_documents_chain
 
 from llm import llm
 from prompt import prompt_RAG
 
 
-# ==========================
-# Cargar documentos
-# ==========================
+
 
 ruta_pdfs = Path("./documentos")
 
@@ -26,9 +24,6 @@ for archivo in ruta_pdfs.glob("*.pdf"):
     docs.extend(loader.load())
 
 
-# ==========================
-# Dividir documentos
-# ==========================
 
 splitter = RecursiveCharacterTextSplitter(
     chunk_size=500,
@@ -38,18 +33,11 @@ splitter = RecursiveCharacterTextSplitter(
 chunks = splitter.split_documents(docs)
 
 
-# ==========================
-# Embeddings
-# ==========================
-
-embeddings = OllamaEmbeddings(
-    model="bge-m3"
+embeddings = HuggingFaceEmbeddings(
+    model_name="BAAI/bge-m3"
 )
 
 
-# ==========================
-# Vector Store
-# ==========================
 
 vectorstore = FAISS.from_documents(
     chunks,
@@ -65,9 +53,6 @@ retriever = vectorstore.as_retriever(
 )
 
 
-# ==========================
-# Cadena RAG
-# ==========================
 
 document_chain = create_stuff_documents_chain(
     llm,
@@ -75,9 +60,6 @@ document_chain = create_stuff_documents_chain(
 )
 
 
-# ==========================
-# Función principal
-# ==========================
 
 def responder_RAG(pregunta):
 
