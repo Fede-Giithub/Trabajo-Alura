@@ -362,14 +362,23 @@ workflow.add_edge(
 
 app = workflow.compile()
 
+print("\n===== Victory AI =====")
+print("Escribí tu consulta. Para salir escribí 'salir'.\n")
 
+while True:
 
-resultado = app.invoke(
-    {
-        "pregunta": "Quiero devolver mi producto"
-    }
-)
+    pregunta = input("👤 Usuario: ")
 
+    if pregunta.lower() == "salir":
+        print("\n🤖 Victory: ¡Hasta luego!")
+        break
 
-print("\nRESULTADO FINAL")
-print(resultado)
+    resultado = app.invoke(
+        {
+            "pregunta": pregunta
+        }
+    )
+
+    print("\n🤖 Victory:")
+    print(resultado["respuesta"])
+    print()
