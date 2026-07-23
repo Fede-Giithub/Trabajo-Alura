@@ -15,4 +15,4 @@ python-dotenv==1.2.2
 
 pydantic==2.13.4
 
-google-generativeai==0.8.5
+google-genai

@@ -5,7 +5,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 
 from langchain.chains.combine_documents import create_stuff_documents_chain
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 import os
 
 from llm import llm
@@ -40,26 +41,41 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY")
+)
 
 class GeminiEmbeddings:
 
     def embed_documents(self, texts):
-        return [
-            genai.embed_content(
-                model="models/gemini-embedding-001",
-                content=text,
-                task_type="retrieval_document"
-            )["embedding"]
-            for text in texts
-        ]
+        embeddings = []
+
+        for text in texts:
+            response = client.models.embed_content(
+                model="gemini-embedding-001",
+                contents=text,
+                config=types.EmbedContentConfig(
+                    task_type="RETRIEVAL_DOCUMENT"
+                )
+            )
+
+            embeddings.append(response.embeddings[0].values)
+
+        return embeddings
+
 
     def embed_query(self, text):
-        return genai.embed_content(
-            model="models/gemini-embedding-001",
-            content=text,
-            task_type="retrieval_query"
-        )["embedding"]
+
+        response = client.models.embed_content(
+            model="gemini-embedding-001",
+            contents=text,
+            config=types.EmbedContentConfig(
+                task_type="RETRIEVAL_QUERY"
+            )
+        )
+
+        return response.embeddings[0].values
+
 
     def __call__(self, text):
         return self.embed_query(text)
