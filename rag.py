@@ -5,11 +5,16 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.chains.combine_documents import create_stuff_documents_chain
+import google.generativeai as genai
+import os
 
 from llm import llm
 from prompt import prompt_RAG
 
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 ruta_pdfs = Path("./documentos")
 
@@ -31,12 +36,36 @@ splitter = RecursiveCharacterTextSplitter(
 
 chunks = splitter.split_documents(docs)
 
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/paraphrase-MiniLM-L3-v2",
-    model_kwargs={"device": "cpu"}
-)
 
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+class GeminiEmbeddings:
+
+    def embed_documents(self, texts):
+        return [
+            genai.embed_content(
+                model="models/gemini-embedding-001",
+                content=text,
+                task_type="retrieval_document"
+            )["embedding"]
+            for text in texts
+        ]
+
+    def embed_query(self, text):
+        return genai.embed_content(
+            model="models/gemini-embedding-001",
+            content=text,
+            task_type="retrieval_query"
+        )["embedding"]
+
+    def __call__(self, text):
+        return self.embed_query(text)
+
+        
+embeddings = GeminiEmbeddings()
 
 
 vectorstore = FAISS.from_documents(
