@@ -1,11 +1,12 @@
 # Victory AI - Agente Inteligente de Soporte Ecommerce
 
 
-LINK DE RENDER CON EL PROYECTO FUNCIONAL:
+## LINK DE RENDER CON EL PROYECTO FUNCIONAL:
 https://trabajo-alura-final.onrender.com/
 
 
-
+## Video de evidencia de funcionamiento del proyecto:
+https://www.youtube.com/watch?v=0oeUdXTH7kE
 
 
 ## Descripción del proyecto
