@@ -1,19 +1,27 @@
 # Victory AI - Agente Inteligente de Soporte Ecommerce
 
+
+LINK DE RENDER CON EL PROYECTO FUNCIONAL:
+https://trabajo-alura-final.onrender.com/
+
+
+
+
+
 ## Descripción del proyecto
 
-Victory AI es un agente inteligente de soporte desarrollado para una tienda ecommerce ficticia llamada **Victory**.
+Victory AI es un agente inteligente de soporte desarrollado para una tienda ecommerce ficticia llamada Victory.
 
-El sistema utiliza una arquitectura **RAG (Retrieval Augmented Generation)** para responder consultas de usuarios utilizando información contenida en documentos internos de la empresa, como:
+El sistema utiliza una arquitectura RAG para responder consultas de usuarios utilizando información contenida en documentos internos de la empresa, como:
 
 - Política de privacidad
 - Política de reembolso y devoluciones
 - Guía de envíos y entregas
-- Preguntas frecuentes
+- Preguntas frecuentes(FAQ)
 - Términos y condiciones
 
 
-Además, se implementó un flujo de decisión mediante **LangGraph**, permitiendo que el agente clasifique las consultas y determine si debe:
+Además, se implementó un flujo de decisión mediante LangGraph, permitiendo que el agente clasifique las consultas y determine si debe:
 
 - Responder automáticamente.
 - Solicitar información adicional.
@@ -21,7 +29,7 @@ Además, se implementó un flujo de decisión mediante **LangGraph**, permitiend
 
 
 ## Arquitectura del proyecto
-En cuanto a arquitectura: esto se dividio en 
+En cuanto a arquitectura: esto se dividió en:
 -Lang.py : Estado y nodos del agente LangGraph
 -main.py: Interfaz de interacción con el usuario
 -llm.py:Configuración del modelo Gemini
@@ -39,107 +47,100 @@ Usuario → Triaje → Decisión:
 - Generar ticket de soporte.
 
 
-# Uso del proyecto
 
-## Requisitos previos
+# Requisitos previos
 
 Antes de ejecutar el proyecto es necesario contar con:
 
 - Python 3.10 o superior.
-- Ollama instalado y ejecutándose.
-- Modelo de embeddings BGE-M3 descargado en Ollama.
 - Una API Key válida de Google Gemini.
 
 ## Instalación
 
-## Instrucciones de uso
-
 ### Paso 1: Clonar el repositorio
 
-Descargar el proyecto desde el repositorio utilizando el siguiente comando:
+Clonar el repositorio:
 
 ```bash
-git clone <https://github.com/Fede-Giithub/Trabajo-Alura.git>
+git clone https://github.com/Fede-Giithub/Trabajo-Alura.git
 ```
 
-Luego ingresar a la carpeta del proyecto:
+Ingresar a la carpeta del proyecto:
 
 ```bash
-cd Proyecto-Alura
+cd Trabajo-Alura
 ```
+---
 
 ### Paso 2: Crear el entorno virtual
 
-Crear un entorno virtual de Python para instalar las dependencias aisladas del proyecto:
+Crear el entorno virtual:
 
 ```bash
 python -m venv .venv
 ```
 
-Activar el entorno virtual:
+Activarlo:
 
-**Windows:**
 
 ```bash
 .venv\Scripts\activate
 ```
 
+---
+
 ### Paso 3: Instalar las dependencias
 
-Instalar todas las librerías necesarias para ejecutar el proyecto:
-streamlit==1.59.2
-
-langchain==0.3.27
-langchain-community==0.3.27
-langchain-core==0.3.72
-langchain-google-genai==2.1.9
-langchain-huggingface==0.0.3
-langchain-text-splitters==0.3.9
-langgraph==0.6.0
-
-faiss-cpu==1.14.3
-
-sentence-transformers==5.6.0
-transformers==5.14.1
-huggingface_hub==1.24.0
-
-pymupdf==1.28.0
-
-python-dotenv==1.2.2
-
-pydantic==2.13.4
+Instalar todas las dependencias del proyecto:
 
 ```bash
 pip install -r requirements.txt
+```
 
+---
 
 ### Paso 4: Configurar las variables de entorno
 
-Crear un archivo `.env` en la raíz del proyecto.
-Dentro del archivo agregar la API Key de Google Gemini:
+Crear un archivo llamado `.env` en la raíz del proyecto.
 
+Agregar la siguiente variable:
+
+```env
 GEMINI_API_KEY=tu_api_key_de_google_gemini
+```
 
+La API Key puede obtenerse desde Google AI Studio.
 
-## Paso 5: Configurar el modelo de embeddings
+---
 
-El proyecto utiliza el modelo de embeddings **BAAI/bge-m3** mediante HuggingFace
+### Paso 5: Ejecutar la aplicación
 
-
-```bash
-BAAI/bge-m3
-
-
-### Paso 6: Ejecutar la aplicación
-
-Iniciar la interfaz web ejecutando:
+Iniciar la aplicación con:
 
 ```bash
 streamlit run aplicacion.py
-### Paso 6: Ejecutar la aplicación
+```
 
+La aplicación estará disponible en:
 
+```
+http://localhost:8501
+```
 
+---
+
+## Tecnologías utilizadas
+
+- Python
+- Streamlit
+- LangChain
+- LangGraph
+- Google Gemini 2.5 Flash
+- Google Gemini Embeddings (`gemini-embedding-001`)
+- FAISS
+- PyMuPDF
+
+---
 ### Preguntas y respuestas realizadas:
 ===== Victory AI =====
 Escribí tu consulta. Para salir escribí 'salir'.
