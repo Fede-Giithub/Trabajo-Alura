@@ -3,7 +3,7 @@ from pathlib import Path
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
+
 from langchain.chains.combine_documents import create_stuff_documents_chain
 import google.generativeai as genai
 import os
@@ -64,7 +64,7 @@ class GeminiEmbeddings:
     def __call__(self, text):
         return self.embed_query(text)
 
-        
+
 embeddings = GeminiEmbeddings()
 
 
